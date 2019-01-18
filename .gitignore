@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/e2e
 
 # dependencies
 /node_modules
