@@ -1,4 +1,4 @@
-# Vocabin
+![picture alt](https://github.com/Buroni/vocabin/blob/master/src/assets/vocabin_logo.png "Logo")
 
 Vocabin converts raw text to flashcards with English translations, organised by difficulty and ready to import into flashcard applications like Anki.
 
