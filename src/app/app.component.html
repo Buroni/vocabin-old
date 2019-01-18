@@ -1,20 +1,84 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
+  <div style="text-align:center;margin-bottom:18px;">
+    <img src="/assets/vocabin_logo.png" width="228" height="101"/>
+  </div>
+  <div style="text-align:center">
+    <mat-form-field class="example-full-width" appearance="outline" style="width: 700px; height: auto;">
+      <textarea matInput placeholder="Paste text here" [(ngModel)]="text" class="txtarea" (ngModelChange)="type()"></textarea>
+    </mat-form-field>
+    <div class="button-tray">
+      <div class="char-count mat-body-1" [ngClass]="{'red-text': len > 2000}">
+        {{len}}/2000
+      </div>
+      <mat-select placeholder="Language" class="lang-select" [(ngModel)]="language">
+        <mat-option value="chinese">Chinese</mat-option>
+        <mat-option value="french">French</mat-option>
+        <mat-option value="german">German</mat-option>
+        <mat-option value="italian">Italian</mat-option>
+        <mat-option value="korean">Korean</mat-option>
+        <mat-option value="russian">Russian</mat-option>
+        <mat-option value="spanish">Spanish</mat-option>
+      </mat-select>
+      <button mat-raised-button (click)="getVocab()" [disabled]="text == null || text == '' || language == null || disabledPeriod || len > 2000">Get Vocab</button>
+    </div>
+  </div>
 
+  <div class="cards mat-body" id="cards">
+    <div *ngIf="!vocabService.loading && !vocabService.vocabGroup" class="info">
+      <mat-icon class="info-icon">info</mat-icon>
+      <p>Vocabin converts raw text to flashcards with English translations, organised by difficulty and ready to import
+        into flashcard applications like Anki.
+      </p>
+      <p>
+        To get started, simply paste some text into the box above, select the language of the text and hit "Get Vocab"!
+      </p>
+    </div>
+
+    <div *ngIf="vocabService.loading">
+      Loading...
+    </div>
+
+    <div *ngIf="!vocabService.loading && vocabService.vocabGroup">
+      <div class="vocab-box">
+        <div class="header">
+          <h3 class="mat-h3">Very Common <div class="select-options"><mat-icon (click)="toggleSelect('veryCommon', false)" class="icon">indeterminate_check_box</mat-icon> <mat-icon (click)="toggleSelect('veryCommon', true)" class="icon">check_box</mat-icon></div></h3>
+        </div>
+        <mat-chip-list>
+          <app-vocab-chip *ngFor="let vocabItem of vocabService.vocabGroup.veryCommon" occurrence="veryCommon" [word]="vocabItem.word" [translation]="vocabItem.translation" [checked]="vocabItem.checked"></app-vocab-chip>
+        </mat-chip-list>
+      </div>
+
+      <div class="vocab-box">
+        <div class="header">
+          <h3 class="mat-h3">Common <div class="select-options"><mat-icon (click)="toggleSelect('common', false)" class="icon">indeterminate_check_box</mat-icon> <mat-icon (click)="toggleSelect('common', true)" class="icon">check_box</mat-icon></div></h3>
+        </div>
+        <mat-chip-list>
+          <app-vocab-chip *ngFor="let vocabItem of vocabService.vocabGroup.common" occurrence="common" [word]="vocabItem.word" [translation]="vocabItem.translation" [checked]="vocabItem.checked"></app-vocab-chip>
+        </mat-chip-list>
+      </div>
+
+      <div class="vocab-box">
+        <div class="header">
+          <h3 class="mat-h3">Uncommon <div class="select-options"><mat-icon (click)="toggleSelect('uncommon', false)" class="icon">indeterminate_check_box</mat-icon> <mat-icon (click)="toggleSelect('uncommon', true)" class="icon">check_box</mat-icon></div></h3>
+        </div>
+        <mat-chip-list>
+          <app-vocab-chip *ngFor="let vocabItem of vocabService.vocabGroup.uncommon" occurrence="uncommon" [word]="vocabItem.word" [translation]="vocabItem.translation" [checked]="vocabItem.checked"></app-vocab-chip>
+        </mat-chip-list>
+      </div>
+
+      <div class="vocab-box">
+        <div class="header">
+          <h3 class="mat-h3">Very Uncommon <div class="select-options"><mat-icon (click)="toggleSelect('veryUncommon', false)" class="icon">indeterminate_check_box</mat-icon> <mat-icon (click)="toggleSelect('veryUncommon', true)" class="icon">check_box</mat-icon></div></h3>
+        </div>
+        <mat-chip-list>
+          <app-vocab-chip *ngFor="let vocabItem of vocabService.vocabGroup.veryUncommon" occurrence="veryUncommon" [word]="vocabItem.word" [translation]="vocabItem.translation" [checked]="vocabItem.checked"></app-vocab-chip>
+        </mat-chip-list>
+      </div>
+      <br />
+    </div>
+  </div>
+</div>
+<div class="podbar mat-body-1">
+  <button mat-raised-button *ngIf="!vocabService.loading && vocabService.vocabGroup" class="dl-btn" color="primary" (click)="downloadCsv()"><mat-icon>arrow_downward</mat-icon>Download Selected as CSV</button>
+  <div class="created-by">Created by Jake Browning | <a href="https://github.com/Buroni">View on Github</a></div>
+</div>

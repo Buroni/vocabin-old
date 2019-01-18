@@ -1,0 +1,5 @@
+<mat-chip class="chip">
+  <b>{{word}}</b>: {{translation}}
+  <mat-icon class="icon" (click)="showEditDialog()">edit</mat-icon>
+  <mat-checkbox [checked]="checked" (change)="toggleChecked($event)" color="primary"></mat-checkbox>
+</mat-chip>

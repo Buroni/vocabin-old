@@ -1,0 +1,15 @@
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Word" class="full-width" [(ngModel)]="word">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Translation" class="full-width" [(ngModel)]="translation">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="save()">Edit</button>
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>
+
