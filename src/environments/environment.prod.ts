@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverUrl: 'http://vocabin.net:8000'
+  serverUrl: 'http://localhost:8000'
 };
