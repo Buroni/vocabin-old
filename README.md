@@ -1,27 +1,33 @@
-# Autoflash
+<p align="center">
+<img src="https://github.com/Buroni/vocabin/blob/master/src/assets/vocabin_logo.png" style="text-align: center;" width="228" height="101" />
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
+##
 
-## Development server
+Vocabin converts raw text to flashcards with English translations, organised by difficulty and ready to import into flashcard applications like Anki.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Vocabin is live at http://vocabin.net
 
-## Code scaffolding
+## Running Locally
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+After cloning this repo and navigating to the project root, follow the steps below to set up the application on your local machine:
 
-## Build
+1. Run `npm install` in both the /client and /server directories.
+2. Upload the word frequency data located in /word_freq_data to a local DB, with tables named `word_freq_{language}` and columns `word, freq, id`.
+3. Obtain a google translate API key
+4. Create a file `config/dev.json` of the following format:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
+{
+  "googleTranslateApiKey": "{api key}",
+  "cmdPath": "",
+  "mysqlCredentials": {
+    "database": "{database name}",
+    "username": "{username}",
+    "password": "{password}",
+    "host": "{host}"
+  }
+}
+```
+5. Navigate to /server and run `node server.js`
+6. Navigate to /client and run `ng serve`
