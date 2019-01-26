@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  serverUrl: 'http://vocabin.net:8000'
+  serverUrl: 'http://vocabin.net:8000',
+  gaTrackingId: 'xxxxxxxx'
 };
