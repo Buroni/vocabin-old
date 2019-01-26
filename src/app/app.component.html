@@ -4,7 +4,7 @@
   </div>
   <div style="text-align:center">
     <mat-form-field class="example-full-width" appearance="outline" style="width: 700px; height: auto;">
-      <textarea matInput placeholder="Paste text here" [(ngModel)]="text" class="txtarea" (ngModelChange)="type()"></textarea>
+      <textarea matInput placeholder="Paste text here" [(ngModel)]="text" class="txtarea" id="txtarea" (ngModelChange)="type()"></textarea>
     </mat-form-field>
     <div class="button-tray">
       <div class="char-count mat-body-1" [ngClass]="{'red-text': len > 2000}">
@@ -31,6 +31,9 @@
       </p>
       <p>
         To get started, simply paste some text into the box above, select the language of the text and hit "Get Vocab"!
+      </p>
+      <p>
+        Alternatively, <span class="link" (click)="runDemo()" class="link">run a quick example</span>.
       </p>
     </div>
 

@@ -115,10 +115,16 @@
   color: rgb(64,84,178);
 }
 
-a {
+a, .link {
   text-decoration: underline;
   color: rgb(64,84,178);
 }
 
 .created-by {
+  background: rgba(255, 255, 255, 0.8);
+  width: 25%;
+}
+
+.link {
+  cursor: pointer;
 }

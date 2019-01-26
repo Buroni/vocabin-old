@@ -10,10 +10,11 @@ import {auditTime, debounceTime} from "rxjs/internal/operators";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  text: string;
+  text  = '';
   language: string;
   disabledPeriod = false;
   len = 0;
+  demoRunning = false;
 
   private getVocabDebounce$: Subject<boolean> = new Subject();
 
@@ -37,6 +38,45 @@ export class AppComponent {
     this.disabledPeriod = true;
     setTimeout(() => { this.disabledPeriod = false; }, 10000);
     this.getVocabDebounce$.next(true);
+  }
+
+  runDemo() {
+    if (this.demoRunning) {
+      return;
+    }
+
+    this.demoRunning = true;
+    this.text = '';
+
+    this.runDemoText().then(() => {
+      this.language = 'german';
+      this.getVocab();
+      this.demoRunning = false;
+    });
+  }
+
+  runDemoText(): Promise<any> {
+    const txt = 'Ursprünglich waren Pangramme lediglich eine mathematische Spielerei. Mit dem Aufkommen kodierter Textübertragung im zwanzigsten Jahrhundert wurden sie zu einem gebräuchlichen Instrument zum Testen der benutzten Geräte.';
+    const speed = 20;
+
+    return new Promise((resolve, reject) => {
+
+      const typeEffect = (i = 0) => {
+        this.text += txt.charAt(i);
+        this.type();
+
+        setTimeout(() => {
+          if (i < txt.length) {
+            typeEffect(i + 1);
+          } else {
+            return resolve(true);
+          }
+        }, speed);
+
+      };
+
+      typeEffect();
+    });
   }
 
   /**
