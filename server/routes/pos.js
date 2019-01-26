@@ -42,45 +42,54 @@ module.exports = function(app) {
     const tagger = new Treetagger({language: language});
 
    tagger.tag(text, async function (err, results) {
-     const vocab = [];
-      console.log(results);
-      const filtered = [...new Set(results
-       .filter(r => posFilters(language, r.pos))
-       .map(r => {
-         if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined') {
-           return r.l;
-         } else {
-           return r.t;
-        }
-       }))];
-
+      const filtered = filterResults(results, language);
 
       if (filtered.length === 0) {
         res.json({});
       }
 
-        filtered.forEach(async word => {
-        const query = `SELECT freq FROM word_freq_${getLanguage(language)} WHERE word=$1`;
-        let queryResults;
-        try {
-          queryResults = await sequelize.query(query, {bind: [word]});
-        } catch(err) {
-          console.error(err);
-        }
-
-        googleTranslate.translate(word, 'en', (err, translation) => {
-          const freq = (queryResults[0][0]) ? +queryResults[0][0].freq : 0;
-          vocab.push({ word, translation: translation.translatedText, occurrence: getDifficulty(freq), checked: true});
-          if (vocab.length === filtered.length) {
-            res.json(vocab.filter(v => v.word !== '<unknown>'));
-          }
-        });
-
-      });
-
+      sendFilteredResults(filtered, language, res);
     });
   });
 };
+
+function filterResults(results, language) {
+  return [...new Set(results
+    .filter(r => posFilters(language, r.pos))
+    .map(r => {
+      if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined') {
+        return r.l;
+      } else {
+        return r.t;
+      }
+    })
+  )];
+}
+
+function sendFilteredResults(filtered, language, res) {
+  const vocab = [];
+  filtered.forEach(async word => {
+    const query = `SELECT freq FROM word_freq_${getLanguage(language)} WHERE word=$1`;
+    let queryResults;
+
+    try {
+      queryResults = await sequelize.query(query, {bind: [word]});
+
+      googleTranslate.translate(word, 'en', (err, translation) => {
+        const freq = (queryResults[0][0]) ? +queryResults[0][0].freq : 0;
+
+        vocab.push({ word, translation: translation.translatedText, occurrence: getDifficulty(freq), checked: true});
+
+        if (vocab.length === filtered.length) {
+          res.json(vocab.filter(v => v.word !== '<unknown>'));
+        }
+      });
+
+    } catch(err) {
+      console.error(err);
+    }
+  });
+}
 
 function getDifficulty(freq) {
   let occurrence;
