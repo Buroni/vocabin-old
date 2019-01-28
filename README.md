@@ -15,12 +15,13 @@ After cloning this repo and navigating to the project root, follow the steps bel
 1. Run `npm install` in both the /client and /server directories.
 2. Upload the word frequency data located in /word_freq_data to a local DB, with tables named `word_freq_{language}` and columns `word, freq, id`.
 3. Obtain a google translate API key
-4. Create a file `config/dev.json` of the following format:
+4. Install the <a href="http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/" target="_blank">TreeTagger</a> library, along with the parameter files for the supported languages.
+5. Create a file `config/dev.json` of the following format:
 
 ```
 {
   "googleTranslateApiKey": "{api key}",
-  "cmdPath": "",
+  "cmdPath": "{Treetagger CMD directory path}",
   "mysqlCredentials": {
     "database": "{database name}",
     "username": "{username}",
@@ -29,5 +30,5 @@ After cloning this repo and navigating to the project root, follow the steps bel
   }
 }
 ```
-5. Navigate to /server and run `node server.js`
-6. Navigate to /client and run `ng serve`
+6. Navigate to /server and run `node server.js`
+7. Navigate to /client and run `ng serve`
