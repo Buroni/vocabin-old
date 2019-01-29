@@ -8,6 +8,11 @@ Vocabin converts raw text to flashcards with English translations, organised by 
 
 Vocabin is live at http://vocabin.net
 
+## Feature List for V1
+* Export vocabulary as Cloze cards with the sentence in which each word was found.
+* Add Portuguese, Danish, Turkish and Polish.
+* Replace hit-and-miss Google Translate API with a specialised dictionary API for each separate language.
+
 ## Running Locally
 
 After cloning this repo and navigating to the project root, follow the steps below to set up the application on your local machine:
