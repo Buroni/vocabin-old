@@ -8,9 +8,10 @@ Vocabin converts raw text to flashcards with English translations, organised by 
 
 Vocabin is live at http://vocabin.net
 
-## Feature List for V1
+## Todo List for V1
 - [ ] Export vocabulary as Cloze cards with the sentence in which each word was found.
 - [ ] Add Portuguese, Danish, Turkish and Polish.
+- [ ] Detect and filter non-words from text.
 
 ## Running Locally
 
