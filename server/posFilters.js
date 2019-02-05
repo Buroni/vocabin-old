@@ -5,31 +5,88 @@ module.exports = function(language, pos) {
 
   switch(language) {
     case 'german':
-      passPos = ['NN', 'ADJA', 'VAFIN', 'ADV', 'ITJ'].includes(pos);
+      /*
+       * Noun - NN
+       * Adjective - ADJA, ADJD
+       * Verb - VV*, VA*, VM*
+       * Adverb - ADV
+       * Interjection - ITJ
+       */
+      passPos = (['NN', 'ADJA', 'ADV', 'ITJ', 'ADJD'].includes(pos)
+        || pos.includes('VV') || pos.includes('VA') || pos.includes('VM'));
       break;
     case 'french':
-      passPos = (pos.includes('VER') || ['NOM', 'ADJ', 'INT'].includes(pos));
+      /*
+       * Noun - NOM
+       * Adjective - ADJ
+       * Verb - VER*
+       * Adverb - ADV
+       * Interjection - INT
+       */
+      passPos = (pos.includes('VER') || ['NOM', 'ADJ', 'INT', 'ADV'].includes(pos));
       break;
     case 'spanish':
-      passPos = (pos.includes('NOUN') || pos.includes('VERB') || ['PROPN', 'ADJ', 'INT'].includes(pos));
+      /*
+       * Noun - NC, NMEA, NMON
+       * Adjective - ADJ
+       * Verb - VE*, VH*, VL*, VM*, VS*
+       * Adverb - ADV
+       * Interjection - ITJN
+       */
+      passPos = (['NC', 'ITJN', 'ADJ', 'ADV', 'NMEA', 'NMON'].includes(pos) ||
+      pos.includes('VE') || pos.includes('VH') || pos.includes('VL') || pos.includes('VM')  || pos.includes('VS'));
       break;
     case 'korean':
-      passPos = (pos.includes('NNG') || pos.includes('NNP') || pos.includes('NNB') || pos.includes('VV'));
+      /*
+       * Noun - NN*
+       * Adjective - VA
+       * Verb - VV
+       * Adverb - MA*
+       * Interjection - IC
+       */
+      passPos = (['VA', 'VV', 'IC'].includes(pos) || pos.includes('NN') || pos.includes('VC') || pos.includes('MA'));
       break;
     case 'italian':
+      /*
+       * Noun - NOM
+       * Adjective - ADJ
+       * Verb - VER*
+       * Adverb - ADV
+       * Interjection - INT
+       */
       passPos = (pos.includes('VER') || ['NOM', 'ADJ', 'INT'].includes(pos));
       break;
     case 'russian':
+      /*
+       * Noun - Nc*, Np*
+       * Adjective - Afc*, Afp*
+       * Verb - Vm*
+       * Adverb - R, Rc
+       * Interjection - I
+       */
       passPos = (
         pos.includes('Afc') ||
         pos.includes('Afp') ||
         pos.includes('Nc') ||
         pos.includes('Np') ||
-        pos.includes('Vm')
+        pos.includes('Vm') ||
+        ['I', 'R', 'Rc'].includes(pos)
       );
       break;
     case 'chinese':
-      passPos = ['n', 'v', 'd', 'l'].includes(pos);
+      /*
+       * Noun - n, ng, nr, ns, nz
+       * Adjective - a, ag, ad, an
+       * Verb - v, vd, vg, vn
+       * Adverb - d, dg
+       * Interjection - e
+       * Idiom - i
+       */
+      passPos = [
+        'n', 'ng', 'nr', 'ns', 'nz',
+        'a', 'ag', 'ad', 'an',
+        'v', 'vd', 'vg', 'vn',
+        'e', 'i'].includes(pos);
       break;
   }
 
