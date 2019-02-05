@@ -12,7 +12,7 @@ Vocabin is live at http://vocabin.net
 - [ ] Export vocabulary as Cloze cards with the sentence in which each word was found.
 - [ ] Add Portuguese, Danish, Turkish and Polish.
 - [ ] Detect and filter non-words from text.
-- [ ] Standardise all POS filters to only accept verbs, nouns, adverbs and adjectives across all languages.
+- [ ] Standardise all POS filters to only accept verbs, nouns, adverbs, interjections and adjectives across all languages.
 
 ## Running Locally
 
