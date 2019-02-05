@@ -9,10 +9,10 @@ Vocabin converts raw text to flashcards with English translations, organised by 
 Vocabin is live at http://vocabin.net
 
 ## Todo List for V1
+- [x] Standardise all POS filters to only accept verbs, nouns, adverbs, interjections and adjectives across all languages.
 - [ ] Export vocabulary as Cloze cards with the sentence in which each word was found.
 - [ ] Add Portuguese, Danish, Turkish and Polish.
 - [ ] Detect and filter non-words from text.
-- [ ] Standardise all POS filters to only accept verbs, nouns, adverbs, interjections and adjectives across all languages.
 
 ## Running Locally
 
