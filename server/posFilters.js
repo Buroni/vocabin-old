@@ -6,55 +6,55 @@ module.exports = function(language, pos) {
   switch(language) {
     case 'german':
       /*
-       * Noun - NN
+       * Noun - NN, NE
        * Adjective - ADJA, ADJD
        * Verb - VV*, VA*, VM*
        * Adverb - ADV
        * Interjection - ITJ
        */
-      passPos = (['NN', 'ADJA', 'ADV', 'ITJ', 'ADJD'].includes(pos)
+      passPos = (['NN', 'NE', 'ADJA', 'ADV', 'ITJ', 'ADJD'].includes(pos)
         || pos.includes('VV') || pos.includes('VA') || pos.includes('VM'));
       break;
     case 'french':
       /*
-       * Noun - NOM
+       * Noun - NOM, NAM
        * Adjective - ADJ
        * Verb - VER*
        * Adverb - ADV
        * Interjection - INT
        */
-      passPos = (pos.includes('VER') || ['NOM', 'ADJ', 'INT', 'ADV'].includes(pos));
+      passPos = (pos.includes('VER') || ['NOM', 'NAM', 'ADJ', 'INT', 'ADV'].includes(pos));
       break;
     case 'spanish':
       /*
-       * Noun - NC, NMEA, NMON
+       * Noun - NC, NP, NMEA, NMON
        * Adjective - ADJ
        * Verb - VE*, VH*, VL*, VM*, VS*
        * Adverb - ADV
        * Interjection - ITJN
        */
-      passPos = (['NC', 'ITJN', 'ADJ', 'ADV', 'NMEA', 'NMON'].includes(pos) ||
+      passPos = (['NC', 'NP', 'ITJN', 'ADJ', 'ADV', 'NMEA', 'NMON'].includes(pos) ||
       pos.includes('VE') || pos.includes('VH') || pos.includes('VL') || pos.includes('VM')  || pos.includes('VS'));
       break;
     case 'korean':
       /*
-       * Noun - NN*
+       * Noun - NN*, NP
        * Adjective - VA
        * Verb - VV
        * Adverb - MA*
        * Interjection - IC
        */
-      passPos = (['VA', 'VV', 'IC'].includes(pos) || pos.includes('NN') || pos.includes('VC') || pos.includes('MA'));
+      passPos = (['VA', 'VV', 'IC', 'NP'].includes(pos) || pos.includes('NN') || pos.includes('VC') || pos.includes('MA'));
       break;
     case 'italian':
       /*
-       * Noun - NOM
+       * Noun - NOM, NPR
        * Adjective - ADJ
        * Verb - VER*
        * Adverb - ADV
        * Interjection - INT
        */
-      passPos = (pos.includes('VER') || ['NOM', 'ADJ', 'INT'].includes(pos));
+      passPos = (pos.includes('VER') || ['NOM', 'NPR', 'ADJ', 'INT'].includes(pos));
       break;
     case 'russian':
       /*
