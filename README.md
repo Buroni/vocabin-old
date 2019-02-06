@@ -13,6 +13,7 @@ Vocabin is live at http://vocabin.net
 - [ ] Export vocabulary as Cloze cards with the sentence in which each word was found.
 - [ ] Add Portuguese, Danish and Polish.
 - [ ] Detect and filter non-words from text.
+- [ ] Change word frequency detector to use <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank">tf–idf</a> instead of raw counts.
 
 ## Running Locally
 
