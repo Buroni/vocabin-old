@@ -1,6 +1,7 @@
 const Treetagger = require('../treetagger');
 const Sequelize = require('sequelize');
 const posFilters = require('../posFilters');
+const nonWordFilters = require('../nonWordFilter');
 
 const env = process.env.NODE_ENV || 'dev';
 const config = require(`../../config/${env}.json`);
@@ -42,7 +43,7 @@ module.exports = function(app) {
     const tagger = new Treetagger({language: language});
 
    tagger.tag(text, async function (err, results) {
-      const filtered = filterResults(results, language);
+      const filtered = await filterResults(results, language);
 
       if (filtered.length === 0) {
         res.json({});
@@ -53,8 +54,8 @@ module.exports = function(app) {
   });
 };
 
-function filterResults(results, language) {
-  return [...new Set(results
+async function filterResults(results, language) {
+  const words = [...new Set(results
     .filter(r => posFilters(language, r.pos))
     .map(r => {
       if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined') {
@@ -64,6 +65,9 @@ function filterResults(results, language) {
       }
     })
   )];
+
+  const legalWords = await filterIllegalWords(words);
+  return legalWords;
 }
 
 function sendFilteredResults(filtered, language, res) {
@@ -115,4 +119,10 @@ function getLanguage(lang) {
   } else {
     return lang;
   }
+}
+
+async function filterIllegalWords(words) {
+  const promises = words.map(word => nonWordFilters(word));
+  const results = await Promise.all(promises);
+  return words.filter((word, i) => results[i]);
 }
