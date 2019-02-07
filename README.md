@@ -12,7 +12,7 @@ Vocabin is live at http://vocabin.net
 - [x] Standardise all POS filters to only accept verbs, nouns, adverbs, interjections and adjectives across all languages.
 - [x] Detect and filter non-words from text.
 - [ ] Export vocabulary as Cloze cards with the sentence in which each word was found.
-- [ ] Add Portuguese, Danish and Polish.
+- [ ] Add Portuguese, Danish and Swahili.
 - [ ] Change word frequency detector to use <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank">tf–idf</a> instead of raw counts.
 
 ## Resources
@@ -45,3 +45,24 @@ After cloning this repo and navigating to the project root, follow the steps bel
 ```
 6. Navigate to /server and run `node server.js`
 7. Navigate to /client and run `ng serve`
+
+## Supported and Future Languages
+
+The following languages are supported:
+* Chinese (Simplified)
+* Danish
+* French 
+* German 
+* Italian
+* Korean
+* Portuguese
+* Russian
+* Spanish
+* Swahili
+
+The following languages will be introduced in February 2019:
+* Greek
+* Latin
+* Mongolian
+* Portoguese 
+
