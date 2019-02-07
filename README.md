@@ -65,5 +65,5 @@ The following languages will be introduced in February 2019:
 * Greek
 * Latin
 * Mongolian
-* Portoguese 
+* Polish
 
