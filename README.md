@@ -68,6 +68,7 @@ To be introduced in February 2019:
 * Polish
 
 To be introduced in March 2019:
+* Czech
 * Dutch
 * Slovak
 
