@@ -121,6 +121,14 @@ module.exports = function(language, pos) {
         pos.startsWith('I')
       );
       break;
+    case 'swahili':
+      /*
+      * Noun - N
+      * Adjective - ADJ
+      * Verb - VFIN, VB, V-BE
+      * Adverb - ADV
+      */
+      passPos = ['N', 'ADJ', 'VFIN', 'VB', 'V-BE', 'ADV'].includes(pos);
     default:
       break;
   }
