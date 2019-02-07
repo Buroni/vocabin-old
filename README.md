@@ -61,6 +61,7 @@ The following languages are supported:
 * Swahili
 
 The following languages will be introduced in February 2019:
+* Chinese (Traditional)
 * Greek
 * Latin
 * Mongolian
