@@ -60,10 +60,14 @@ The following languages are supported:
 * Spanish
 * Swahili
 
-The following languages will be introduced in February 2019:
+To be introduced in February 2019:
 * Chinese (Traditional)
 * Greek
 * Latin
 * Mongolian
 * Polish
+
+To be introduced in March 2019:
+* Dutch
+* Slovak
 
