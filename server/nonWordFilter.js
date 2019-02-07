@@ -25,7 +25,7 @@ function wordIsLegal(word) {
 
     try {
       googleTranslate.detectLanguage(word, (err, detection) => {
-        if (detection.confidence < 0.5) {
+        if (detection.confidence < 0.2) {
           return resolve(false);
         }
         return resolve(true);
