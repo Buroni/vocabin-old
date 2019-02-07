@@ -15,7 +15,7 @@ var events = require('events'),
     spawn = require('child_process').spawn;
 
 var languages = {
-    'utf8': [ 'bulgarian', 'english', 'chinese', 'finnish', 'galician', 'italian', 'polish', 'slovak',
+    'utf8': [ 'bulgarian', 'english', 'chinese', 'danish', 'finnish', 'galician', 'italian', 'polish', 'slovak',
         'swahili', 'dutch', 'estonian', 'french', 'german', 'latin', 'russian' , 'spanish', 'korean' ]
 };
 

@@ -88,6 +88,22 @@ module.exports = function(language, pos) {
         'v', 'vd', 'vg', 'vn',
         'e', 'i'].includes(pos);
       break;
+    case 'danish':
+      /*
+       * Noun - NC*, NP*
+       * Adjective - AC*, AD*
+       * Verb - V*
+       * Adverb - D*
+       * Interjection - I*
+       */
+      passPos = (
+        pos.startsWith('N') ||
+        pos.startsWith('A') ||
+        pos.startsWith('V') ||
+        pos.startsWith('D') ||
+        pos.startsWith('I')
+      );
+      break;
   }
 
   return passPos;

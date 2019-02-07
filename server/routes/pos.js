@@ -58,6 +58,8 @@ async function filterResults(results, language) {
   const words = [...new Set(results
     .filter(r => posFilters(language, r.pos))
     .map(r => {
+      console.log(r.t);
+      console.log(r.pos);
       if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined') {
         return r.l;
       } else {
@@ -113,7 +115,7 @@ function getDifficulty(freq) {
 }
 
 function getLanguage(lang) {
-  const langs = ['chinese', 'german', 'french', 'korean', 'spanish', 'italian', 'russian'];
+  const langs = ['chinese', 'german', 'french', 'korean', 'spanish', 'italian', 'russian', 'danish'];
   if (!langs.includes(lang)) {
     return null;
   } else {
