@@ -115,7 +115,8 @@ function getDifficulty(freq) {
 }
 
 function getLanguage(lang) {
-  const langs = ['chinese', 'german', 'french', 'korean', 'spanish', 'italian', 'russian', 'danish'];
+  if (lang === 'portuguese-finegrained') return 'portuguese';
+  const langs = ['chinese', 'german', 'french', 'korean', 'spanish', 'italian', 'russian', 'danish', 'portuguese-finegrained'];
   if (!langs.includes(lang)) {
     return null;
   } else {

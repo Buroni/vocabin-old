@@ -104,6 +104,25 @@ module.exports = function(language, pos) {
         pos.startsWith('I')
       );
       break;
+    case 'portuguese-finegrained':
+      /*
+       * Noun - N*, P*
+       * Adjective - TO*
+       * Verb - V*
+       * Adverb - R*
+       * Interjection - I
+       */
+      passPos = (
+        pos.startsWith('N') ||
+        pos.startsWith('P') ||
+        pos.startsWith('TO') ||
+        pos.startsWith('V') ||
+        pos.startsWith('R') ||
+        pos.startsWith('I')
+      );
+      break;
+    default:
+      break;
   }
 
   return passPos;

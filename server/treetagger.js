@@ -16,7 +16,7 @@ var events = require('events'),
 
 var languages = {
     'utf8': [ 'bulgarian', 'english', 'chinese', 'danish', 'finnish', 'galician', 'italian', 'polish', 'slovak',
-        'swahili', 'dutch', 'estonian', 'french', 'german', 'latin', 'russian' , 'spanish', 'korean' ]
+        'swahili', 'dutch', 'estonian', 'french', 'german', 'latin', 'russian' , 'spanish', 'korean', 'portuguese-finegrained']
 };
 
 const env = process.env.NODE_ENV || 'dev';
