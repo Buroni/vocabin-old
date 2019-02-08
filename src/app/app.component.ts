@@ -30,7 +30,8 @@ export class AppComponent {
     this.getVocabDebounce$.pipe(
       debounceTime(300)
     ).subscribe(() => {
-      this.vocabService.updateVocab(this.language, this.text);
+      const sentences = this.text.split('.');
+      this.vocabService.updateVocabSentences(this.language, sentences);
     });
   }
 

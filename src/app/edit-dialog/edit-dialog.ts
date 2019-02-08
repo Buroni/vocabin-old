@@ -18,13 +18,16 @@ export class EditDialogComponent {
   originalWord: string;
   translation: string;
   occurrence: string;
+  sentence: string;
 
   constructor(private vocabService: VocabService,
               public dialogRef: MatDialogRef<EditDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
+    console.log(data);
     this.word = data.word;
     this.originalWord = data.word;
     this.translation = data.translation;
+    this.sentence = data.sentence;
     this.occurrence = data.occurrence;
   }
 

@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Subject} from 'rxjs/index';
 import {environment} from '../../environments/environment';
+import {map} from "rxjs/internal/operators";
 
 export interface VocabItem {
   word: string;
   occurrence: string;
   translation: string;
   checked: boolean;
+  sentence?: string;
 }
 
 export interface VocabGroup {
@@ -36,9 +38,27 @@ export class VocabService {
     });
   }
 
+  updateVocabSentences(language: string, sentences: string[]) {
+    this.loading = true;
+    let vocab;
+    const promises = sentences.map(sentence => this.getVocab(language, sentence));
+
+    Promise.all(promises).then((vocabArr: any[]) => {
+      vocab = vocabArr.flat();
+      this.vocabGroup = this.vocabItemsToGroup(vocab);
+      this.loading = false;
+      this.loadStream$.next(true);
+    });
+  }
+
   private getVocab(language: string, text: string): Promise<any> {
     const body = {language, text};
-    return this.http.post<VocabItem[]>(`${environment.serverUrl}/api/pos`, body).toPromise();
+    return this.http.post<VocabItem[]>(`${environment.serverUrl}/api/pos`, body)
+      .pipe(
+        map(vocab => {
+          return (Array.isArray(vocab)) ? vocab.map(item => ({...item, sentence: text})) : [];
+        })
+      ).toPromise();
   }
 
   private vocabItemsToGroup(vocab: VocabItem[]): VocabGroup {

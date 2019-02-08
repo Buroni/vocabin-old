@@ -14,6 +14,7 @@ export class VocabChipComponent implements OnInit {
   @Input() translation: string;
   @Input() checked = true;
   @Input() occurrence;
+  @Input() sentence;
 
   constructor(private readonly vocabService: VocabService,
               public readonly matDialog: MatDialog) { }
@@ -23,7 +24,7 @@ export class VocabChipComponent implements OnInit {
 
   showEditDialog(): void {
     const dialogRef = this.matDialog.open(EditDialogComponent, {
-      data: {word: this.word, translation: this.translation, occurrence: this.occurrence},
+      data: {word: this.word, translation: this.translation, occurrence: this.occurrence, sentence: this.sentence},
       width: '400px',
       height: '230px'
     });
