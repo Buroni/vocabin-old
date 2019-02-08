@@ -2,7 +2,7 @@ const env = process.env.NODE_ENV || 'dev';
 const config = require(`../config/${env}.json`);
 const googleTranslate = require('google-translate')(config.googleTranslateApiKey);
 
-const illegalChars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '„', '“', '[', ']', '一'];
+const illegalChars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '„', '“', '[', ']', '一', '«', '»'];
 
 module.exports = function(word) {
 

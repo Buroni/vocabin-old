@@ -26,7 +26,7 @@ export class VocabChipComponent implements OnInit {
     const dialogRef = this.matDialog.open(EditDialogComponent, {
       data: {word: this.word, translation: this.translation, occurrence: this.occurrence, sentence: this.sentence},
       width: '400px',
-      height: '230px'
+      height: '280px'
     });
   }
 

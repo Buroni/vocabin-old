@@ -39,7 +39,7 @@ export class EditDialogComponent {
     this.vocabService.vocabGroup[this.occurrence] = this.vocabService.vocabGroup[this.occurrence]
       .map(vocabItem => {
         if (vocabItem.word === this.originalWord) {
-          return {...vocabItem, word: this.word, translation: this.translation};
+          return {...vocabItem, word: this.word, translation: this.translation, sentence: this.sentence};
         } else {
           return vocabItem;
         }
