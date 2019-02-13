@@ -11,8 +11,8 @@ Vocabin is live at http://vocabin.net
 ## Todo List for V1
 - [x] Standardise all POS filters to only accept verbs, nouns, adverbs, interjections and adjectives across all languages.
 - [x] Detect and filter non-words from text.
+- [x] Add Danish, Portuguese and Swahili.
 - [ ] Export vocabulary as Cloze cards with the sentence in which each word was found.
-- [ ] Add Portuguese, Danish and Swahili.
 - [ ] Change word frequency detector to use <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank">tf–idf</a> instead of raw counts.
 
 ## Resources
@@ -68,6 +68,7 @@ To be introduced in February 2019:
 * Polish
 
 To be introduced in March 2019:
+* Czech
 * Dutch
 * Slovak
 
