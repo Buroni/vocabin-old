@@ -19,6 +19,7 @@ export class EditDialogComponent {
   translation: string;
   occurrence: string;
   sentence: string;
+  cardType: string;
 
   constructor(private vocabService: VocabService,
               public dialogRef: MatDialogRef<EditDialogComponent>,
@@ -29,6 +30,7 @@ export class EditDialogComponent {
     this.translation = data.translation;
     this.sentence = data.sentence;
     this.occurrence = data.occurrence;
+    this.cardType = data.cardType;
   }
 
   close() {

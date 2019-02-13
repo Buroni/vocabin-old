@@ -15,6 +15,7 @@ export class AppComponent {
   disabledPeriod = false;
   len = 0;
   demoRunning = false;
+  cardType = 'basic';
 
   private getVocabDebounce$: Subject<boolean> = new Subject();
 
@@ -31,7 +32,7 @@ export class AppComponent {
       debounceTime(300)
     ).subscribe(() => {
       const sentences = this.text.split('.');
-      this.vocabService.updateVocabSentences(this.language, sentences);
+      this.vocabService.updateVocabSentences(this.language, sentences, this.cardType);
     });
   }
 
@@ -89,7 +90,7 @@ export class AppComponent {
   }
 
   downloadCsv() {
-    this.csvService.downloadCsv(this.vocabService.vocabGroup);
+    this.csvService.downloadCsv(this.vocabService.vocabGroup, this.cardType);
   }
 
   type() {

@@ -11,25 +11,32 @@ export class CsvService {
   constructor() {
   }
 
-  downloadCsv(vocab: VocabGroup) {
-    const csv = this.parseCsv(vocab);
+  downloadCsv(vocab: VocabGroup, cardType: string): void {
+    const csv = this.parseCsv(vocab, cardType);
     const blob = new Blob([csv], {type: 'text/plain;charset=utf-8'});
     saveAs(blob, 'vocab.csv');
   }
 
-  private parseCsv(vocab: VocabGroup) {
-    const items = this.vocabGroupToArray(vocab);
+  private parseCsv(vocab: VocabGroup, cardType: string) {
+    const items = this.vocabGroupToArray(vocab, cardType);
+    console.log(items);
     const csv = this.parser.parse(items);
     return csv;
   }
 
-  private vocabGroupToArray(vocab: VocabGroup) {
+  private vocabGroupToArray(vocab: VocabGroup, cardType: string) {
     return [
       ...vocab.veryCommon,
       ...vocab.common,
       ...vocab.uncommon,
       ...vocab.veryUncommon
     ].filter(item => item.checked)
-      .map(item => ({word: item.word, translation: item.translation}));
+      .map(item => {
+        if (cardType === 'basic') {
+          return {word: item.word, translation: item.translation, sentence: item.sentence};
+        } else {
+          return {sentence: item.sentence};
+        }
+    });
   }
 }

@@ -1,9 +1,9 @@
 <mat-dialog-content>
-  <mat-form-field class="full-width">
+  <mat-form-field class="full-width" *ngIf="cardType === 'basic'">
     <input matInput placeholder="Word" class="full-width" [(ngModel)]="word">
   </mat-form-field>
 
-  <mat-form-field class="full-width">
+  <mat-form-field class="full-width" *ngIf="cardType === 'basic'">
     <input matInput placeholder="Translation" class="full-width" [(ngModel)]="translation">
   </mat-form-field>
 

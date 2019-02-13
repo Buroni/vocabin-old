@@ -43,7 +43,7 @@ module.exports = function(app) {
     const tagger = new Treetagger({language: language});
 
    tagger.tag(text, async function (err, results) {
-      const filtered = await filterResults(results, language);
+      const filtered = await filterResults(results, language, req.body.cardType);
 
       if (filtered.length === 0) {
         res.json({});
@@ -54,13 +54,13 @@ module.exports = function(app) {
   });
 };
 
-async function filterResults(results, language) {
+async function filterResults(results, language, cardType) {
   const words = [...new Set(results
     .filter(r => posFilters(language, r.pos))
     .map(r => {
       console.log(r.t);
       console.log(r.pos);
-      if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined') {
+      if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined' && !cardType.includes('cloze')) {
         return r.l;
       } else {
         return r.t;
