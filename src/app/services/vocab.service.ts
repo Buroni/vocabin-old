@@ -19,6 +19,11 @@ export interface VocabGroup {
   veryUncommon: VocabItem[];
 }
 
+interface Array<T> {
+  flat(): Array<T>;
+  flatMap(func: (x: T) => T): Array<T>;
+}
+
 @Injectable()
 export class VocabService {
 
@@ -29,9 +34,15 @@ export class VocabService {
   constructor(private readonly http: HttpClient) {
   }
 
-  updateVocab(language: string, text: string): void {
+  private static flatten(arr: any[]): any[] {
+    return arr.reduce(function (flat, toFlatten) {
+      return flat.concat(Array.isArray(toFlatten) ? VocabService.flatten(toFlatten) : toFlatten);
+    }, []);
+  }
+
+  updateVocab(language: string, text: string, cardType: string): void {
     this.loading = true;
-    this.getVocab(language, text).then(vocab => {
+    this.getVocab(language, text, cardType).then(vocab => {
       this.vocabGroup = this.vocabItemsToGroup(vocab);
       this.loading = false;
       this.loadStream$.next(true);
@@ -44,7 +55,7 @@ export class VocabService {
     const promises = sentences.map(sentence => this.getVocab(language, sentence, cardType));
 
     Promise.all(promises).then((vocabArr: any[]) => {
-      vocab = vocabArr.flat();
+      vocab = VocabService.flatten(vocabArr);
       this.vocabGroup = this.vocabItemsToGroup(vocab);
       this.loading = false;
       this.loadStream$.next(true);
