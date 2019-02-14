@@ -22,12 +22,12 @@
         <mat-option value="spanish">Spanish</mat-option>
         <mat-option value="swahili">Swahili</mat-option>
       </mat-select>
-      <mat-select placeholder="Card Type" class="lang-select" [(ngModel)]="cardType">
+      <mat-select placeholder="Card Type" class="lang-select" [(ngModel)]="selectedCardType">
         <mat-option value="basic">Basic cards</mat-option>
         <mat-option value="cloze-nohint">Cloze cards - no hint</mat-option>
         <mat-option value="cloze-hint">Cloze cards - translation hint</mat-option>
       </mat-select>
-      <button mat-raised-button (click)="getVocab()" [disabled]="text == null || text == '' || language == null || disabledPeriod || len > 2000">Get Vocab</button>
+      <button mat-raised-button (click)="getVocab()" [disabled]="disabled()">Get Vocab</button>
     </div>
   </div>
 

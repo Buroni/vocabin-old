@@ -15,7 +15,8 @@ export class AppComponent {
   disabledPeriod = false;
   len = 0;
   demoRunning = false;
-  cardType = 'basic';
+  cardType: string;
+  selectedCardType = 'basic';
 
   private getVocabDebounce$: Subject<boolean> = new Subject();
 
@@ -38,6 +39,7 @@ export class AppComponent {
 
   getVocab() {
     this.disabledPeriod = true;
+    this.cardType = this.selectedCardType;
     setTimeout(() => { this.disabledPeriod = false; }, 10000);
     this.getVocabDebounce$.next(true);
   }
@@ -55,6 +57,14 @@ export class AppComponent {
       this.getVocab();
       this.demoRunning = false;
     });
+  }
+
+  disabled(): boolean {
+    return this.text == null
+      || this.text === ''
+      || this.language == null
+      || this.disabledPeriod ||
+      this.len > 2000;
   }
 
   runDemoText(): Promise<any> {
