@@ -55,10 +55,17 @@ export class VocabService {
     const promises = sentences.map(sentence => this.getVocab(language, sentence, cardType));
 
     Promise.all(promises).then((vocabArr: any[]) => {
-      vocab = VocabService.flatten(vocabArr);
+      vocab = this.uniqueVocab(VocabService.flatten(vocabArr));
       this.vocabGroup = this.vocabItemsToGroup(vocab);
       this.loading = false;
       this.loadStream$.next(true);
+    });
+  }
+
+  private uniqueVocab(vocab: any[]): any[] {
+    const prop = 'word';
+    return vocab.filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
     });
   }
 

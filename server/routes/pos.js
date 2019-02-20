@@ -75,7 +75,7 @@ async function filterResults(results, language, cardType) {
 function sendFilteredResults(filtered, language, res) {
   const vocab = [];
   filtered.forEach(async word => {
-    const query = `SELECT freq FROM word_freq_${getLanguage(language)} WHERE word=$1`;
+    const query = `SELECT relative_freq AS freq FROM word_freq_${getLanguage(language)} WHERE word=$1`;
     let queryResults;
 
     try {
@@ -99,13 +99,13 @@ function sendFilteredResults(filtered, language, res) {
 
 function getDifficulty(freq) {
   let occurrence;
-  if (freq >= 1000) {
+  if (freq >= 0.000075762) {
     occurrence = 'Very common';
   }
-  else if (freq > 100) {
+  else if (freq > 0.000007331) {
     occurrence = 'Common';
   }
-  else if (freq > 1) {
+  else if (freq > 0.000000244) {
     occurrence = 'Uncommon';
   }
   else {
