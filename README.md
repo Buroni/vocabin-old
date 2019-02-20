@@ -13,7 +13,7 @@ Vocabin is live at http://vocabin.net
 - [x] Detect and filter non-words from text.
 - [x] Add Danish, Portuguese and Swahili.
 - [x] Add option to export vocabulary as Cloze cards with the sentence in which each word was found.
-- [ ] Change word frequency detector to use <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank">tf–idf</a> instead of raw counts.
+- [x] Change word frequency detector to use relative frequency instead of raw counts.
 
 ## Resources
 
