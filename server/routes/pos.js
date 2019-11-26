@@ -58,8 +58,6 @@ async function filterResults(results, language, cardType) {
   const words = [...new Set(results
     .filter(r => posFilters(language, r.pos))
     .map(r => {
-      console.log(r.t);
-      console.log(r.pos);
       if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined' && !cardType.includes('cloze')) {
         return r.l;
       } else {
@@ -68,8 +66,12 @@ async function filterResults(results, language, cardType) {
     })
   )];
 
-  const legalWords = await filterIllegalWords(words);
-  return legalWords;
+  try {
+    const legalWords = await filterIllegalWords(words);
+    return legalWords;
+  } catch(e) {
+    console.log(e);
+  }
 }
 
 function sendFilteredResults(filtered, language, res) {
@@ -99,13 +101,13 @@ function sendFilteredResults(filtered, language, res) {
 
 function getDifficulty(freq) {
   let occurrence;
-  if (freq >= 0.000075762) {
+  if (freq >= 0.0000061580041224416486) {
     occurrence = 'Very common';
   }
-  else if (freq > 0.000007331) {
+  else if (freq > 0.0000006842226802712943) {
     occurrence = 'Common';
   }
-  else if (freq > 0.000000244) {
+  else if (freq > 0.00000034211134013564717) {
     occurrence = 'Uncommon';
   }
   else {

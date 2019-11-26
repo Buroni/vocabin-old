@@ -15,7 +15,7 @@ const corsOptions = {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
-      console.error('Cross-domain requests blocked for this origin.');
+      console.error(`Cross-domain requests blocked for this origin: ${origin}`);
     }
   }
 }
