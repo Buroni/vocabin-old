@@ -8,6 +8,8 @@ const https = require('https');
 const env = process.env.NODE_ENV || 'dev';
 const config = require(`../config/${env}.json`);
 
+console.log(config);
+
 const port = process.env.PORT || 8000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
