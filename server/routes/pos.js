@@ -28,7 +28,7 @@ sequelize
 
 module.exports = function(app) {
 
-  const origin = (env === 'dev') ? 'http://localhost:4200' : 'http://vocabin.net';
+  const origin = (env === 'dev') ? 'http://localhost:4200' : 'https://vocabin.net';
 
   app.options('/api/pos', function (req, res) {
     res.setHeader("Access-Control-Allow-Origin", origin);
