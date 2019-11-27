@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
-const whitelist = ['http://localhost:4200', 'http://vocabin.net'];
+const whitelist = ['http://localhost:4200', 'http://localhost:8000', 'http://vocabin.net', 'https://vocabin.net'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
