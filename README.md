@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/Buroni/vocabin/blob/master/src/assets/vocabin_logo.png" style="text-align: center;" width="228" height="101" />
+<img src="https://github.com/Buroni/vocabin/blob/master/public/vocabin_logo.png" style="text-align: center;" width="228" height="101" />
 </p>
 
 ##
