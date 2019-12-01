@@ -1,0 +1,26 @@
+.WordGroupCard {
+    width: 40em;
+    min-height: 30em;
+    margin: 1em;
+}
+
+.WordGroupCard__words-container {
+    margin: -0.25em;
+    text-align: left;
+}
+
+.WordGroupCard__title {
+    display: flex;
+    align-items: center;
+}
+
+.WordGroupCard__title-item {
+    margin-right: 0.6em;
+}
+
+.WordGroupCard__title-icon {
+    margin-right: 0.2em;
+    cursor: pointer;
+    margin-bottom: 0.2em;
+}
+
