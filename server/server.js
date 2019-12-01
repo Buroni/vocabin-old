@@ -4,16 +4,13 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const fs = require('fs');
 const https = require('https');
+const http = require('http');
 
 const env = process.env.NODE_ENV || 'dev';
 const config = require(`../config/${env}.json`);
-
-console.log(config);
-
 const port = process.env.PORT || 8000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(bodyParser.json());
 
 const options = (env === "dev") ? {} : {
@@ -21,7 +18,7 @@ const options = (env === "dev") ? {} : {
     cert: fs.readFileSync(config.sslCert),
 };
 
-const whitelist = ['http://localhost:4200', 'http://localhost:8000', 'http://vocabin.net', 'https://vocabin.net'];
+const whitelist = ['http://localhost:3000', 'https://vocabin.net'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -39,4 +36,6 @@ app.set('port', port);
 
 require('./routes')(app, {});
 
-https.createServer(options, app).listen(port);
+http.createServer(app).listen(port);
+
+//https.createServer(options, app).listen(port);

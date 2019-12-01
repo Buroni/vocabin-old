@@ -28,7 +28,7 @@ sequelize
 
 module.exports = function(app) {
 
-  const origin = (env === 'dev') ? 'http://localhost:4200' : 'https://vocabin.net';
+  const origin = (env === 'dev') ? 'http://localhost:3000' : 'https://vocabin.net';
 
   app.options('/api/pos', function (req, res) {
     res.setHeader("Access-Control-Allow-Origin", origin);
@@ -76,7 +76,7 @@ async function filterResults(results, language, cardType) {
 
 function sendFilteredResults(filtered, language, res) {
   const vocab = [];
-  filtered.forEach(async word => {
+  filtered.forEach(async (word, idx) => {
     const query = `SELECT relative_freq AS freq FROM word_freq_${getLanguage(language)} WHERE word=$1`;
     let queryResults;
 
@@ -86,7 +86,7 @@ function sendFilteredResults(filtered, language, res) {
       googleTranslate.translate(word, 'en', (err, translation) => {
         const freq = (queryResults[0][0]) ? +queryResults[0][0].freq : 0;
 
-        vocab.push({ word, translation: translation.translatedText, occurrence: getDifficulty(freq), checked: true});
+        vocab.push({ word, translation: translation.translatedText, occurrence: getDifficulty(freq), checked: true, id: idx});
 
         if (vocab.length === filtered.length) {
           res.json(vocab.filter(v => v.word !== '<unknown>'));
