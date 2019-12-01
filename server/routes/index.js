@@ -1,4 +1,4 @@
-const pos = require('./pos');
+const pos = require("./pos");
 
 module.exports = function(app) {
     pos(app);
