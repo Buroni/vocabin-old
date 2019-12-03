@@ -34,15 +34,14 @@ module.exports = function(app) {
     });
 
     app.post(route, async (req, res) => {
-        const language = req.body.language;
-        const text = req.body.text;
+        const {text, language, cardType} = req.body;
         const tagger = new Treetagger({language});
         const sentences = text.split(".");
 
         const promises = sentences.map(async (sentence) => {
             const results = await asyncTag(sentence, tagger);
-            const filtered = await utils.filterResults(results, language, req.body.cardType);
-            const translationItem = await getFilteredResults(filtered, language, sentence);
+            const filtered = await utils.filterResults(results, language, cardType);
+            const translationItem = await getFilteredResults(filtered, language, cardType, sentence);
             return translationItem;
         });
 
@@ -60,7 +59,7 @@ const asyncTag = (text, tagger) => {
     });
 };
 
-const getFilteredResults = (filtered, language, sentence) => {
+const getFilteredResults = (filtered, language, cardType, sentence) => {
     const query = `SELECT relative_freq AS freq FROM word_freq_${utils.getLanguage(language)} WHERE word=$1`;
 
     const promises = filtered.map(async (word, idx) => {
@@ -69,7 +68,7 @@ const getFilteredResults = (filtered, language, sentence) => {
         const translation = await utils.asyncTranslate(word);
         return {
             word,
-            sentence,
+            sentence: getFormattedSentence(word, translation.translatedText, sentence, cardType),
             translation: translation.translatedText,
             occurrence: getDifficulty(freq, language),
             checked: true,
@@ -78,6 +77,16 @@ const getFilteredResults = (filtered, language, sentence) => {
     });
 
     return Promise.all(promises);
+};
+
+const getFormattedSentence = (word, translation, sentence, cardType) => {
+    if (cardType === "basic") {
+        return sentence
+    }
+    if (cardType === "cloze-nohint") {
+        return sentence.replace(word, `{{c1::${word}}}`)
+    }
+    return sentence.replace(word, `{{c1::${word}::${translation}}}`)
 };
 
 const getDifficulty = (freq, language) => {
