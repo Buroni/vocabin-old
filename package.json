@@ -8,8 +8,10 @@
     "@types/jest": "24.0.23",
     "@types/node": "12.12.14",
     "@types/react": "16.9.13",
+    "@types/react-csv": "^1.1.1",
     "@types/react-dom": "16.9.4",
     "react": "^16.12.0",
+    "react-csv": "^1.1.2",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0",
     "typescript": "3.7.2"

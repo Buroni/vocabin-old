@@ -9,6 +9,7 @@ import {VocabOutput} from "./components/VocabOutput/VocabOutput";
 import {TranslationResponseItem, WordGroups} from "./components/VocabOutput/types";
 import {EditWordDialog} from "./components/EditWordDialog/EditWordDialog";
 import {InfoCallout} from "./components/InfoCallout/InfoCallout";
+import {SaveVocabCallout} from "./components/SaveVocabCallout/SaveVocabCallout";
 
 const App: React.FC = () => {
     const [translationRequest, setTranslationRequest] = useState<TranslationRequest>(INITIAL_TRANSLATION_REQUEST);
@@ -91,12 +92,15 @@ const App: React.FC = () => {
             </div>
             <div className={"App__vocab-output-container"}>
                 {translationResponse &&
-                    <VocabOutput
-                        wordItems={translationResponse}
-                        toggleGroup={toggleGroup}
-                        toggleItem={toggleItem}
-                        editWordItem={wordItem => setEditWordDialog(wordItem)}
-                    />
+                    <React.Fragment>
+                        <VocabOutput
+                            wordItems={translationResponse}
+                            toggleGroup={toggleGroup}
+                            toggleItem={toggleItem}
+                            editWordItem={wordItem => setEditWordDialog(wordItem)}
+                        />
+                        <SaveVocabCallout wordItems={translationResponse}/>
+                    </React.Fragment>
                 }
             </div>
             <div className={"App__page-end"} ref={pageEnd}/>
