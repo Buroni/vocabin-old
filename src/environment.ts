@@ -13,4 +13,6 @@ export const environments: any = {
 
 const env = process.env.ENVIRONMENT || 'dev';
 
+console.log(env);
+
 export default environments[env];
