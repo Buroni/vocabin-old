@@ -7,6 +7,7 @@ export enum Occurrence {
 
 export type TranslationResponseItem = {
     word: string;
+    sentence: string;
     translation: string;
     occurrence: Occurrence;
     checked: boolean;

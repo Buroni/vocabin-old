@@ -34,6 +34,7 @@ export const EditWordDialog = (p: Props) => {
                 <div className="bp3-dialog-body">
                     <EditWordField name={"Word"} value={p.wordItem.word} onChange={(e: any) => patchWordItem({word: e.target.value})}/>
                     <EditWordField name={"Translation"} value={p.wordItem.translation} onChange={(e: any) => patchWordItem({translation: e.target.value})}/>
+                    <EditWordField name={"Sentence"} value={p.wordItem.sentence} onChange={(e: any) => patchWordItem({sentence: e.target.value})}/>
                 </div>
             }
             {editingWordItem &&

@@ -33,30 +33,34 @@ module.exports = function(app) {
         res.end();
     });
 
-    app.post(route, (req, res) => {
+    app.post(route, async (req, res) => {
         const language = req.body.language;
         const text = req.body.text;
         const tagger = new Treetagger({language});
+        const sentences = text.split(".");
 
-        console.log(req.body);
-
-        tagger.tag(text, async (err, results) => {
+        const promises = sentences.map(async (sentence) => {
+            const results = await asyncTag(sentence, tagger);
             const filtered = await utils.filterResults(results, language, req.body.cardType);
+            const translationItem = await getFilteredResults(filtered, language, sentence);
+            return translationItem;
+        });
 
-            if (filtered.length === 0) {
-                res.json({});
-                return;
-            }
-
-            getFilteredResults(filtered, language, res).then(results => {
-                res.json(results);
-            })
+        Promise.all(promises).then(items => {
+            res.json(items.flat());
         });
     });
 };
 
+const asyncTag = (text, tagger) => {
+    return new Promise((resolve, reject) => {
+        tagger.tag(text, (err, results) => {
+            return resolve(results);
+        });
+    });
+};
 
-const getFilteredResults = (filtered, language, res) => {
+const getFilteredResults = (filtered, language, sentence) => {
     const query = `SELECT relative_freq AS freq FROM word_freq_${utils.getLanguage(language)} WHERE word=$1`;
 
     const promises = filtered.map(async (word, idx) => {
@@ -65,10 +69,11 @@ const getFilteredResults = (filtered, language, res) => {
         const translation = await utils.asyncTranslate(word);
         return {
             word,
+            sentence,
             translation: translation.translatedText,
             occurrence: getDifficulty(freq, language),
             checked: true,
-            id: idx
+            id: idx,
         };
     });
 
