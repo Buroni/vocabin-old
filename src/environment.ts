@@ -1,18 +1,16 @@
 /* global process:true */
 
 export const environments: any = {
-    dev: {
+    development: {
         serverUrl: 'http://localhost:8000',
         gaTrackingId: 'UA-133313494-1'
     },
-    prod: {
+    production: {
         serverUrl: 'https://vocabin.net:8000',
         gaTrackingId: 'UA-133313494-1'
     }
 };
 
-const env = process.env.ENVIRONMENT || 'dev';
-
-console.log(env);
+const env = process.env.NODE_ENV || 'development';
 
 export default environments[env];
