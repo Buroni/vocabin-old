@@ -38,6 +38,8 @@ module.exports = function(app) {
         const text = req.body.text;
         const tagger = new Treetagger({language});
 
+        console.log(req.body);
+
         tagger.tag(text, async (err, results) => {
             const filtered = await utils.filterResults(results, language, req.body.cardType);
 
@@ -64,7 +66,7 @@ const getFilteredResults = (filtered, language, res) => {
         return {
             word,
             translation: translation.translatedText,
-            occurrence: getDifficulty(freq),
+            occurrence: getDifficulty(freq, language),
             checked: true,
             id: idx
         };
@@ -73,15 +75,16 @@ const getFilteredResults = (filtered, language, res) => {
     return Promise.all(promises);
 };
 
-const getDifficulty = (freq) => {
+const getDifficulty = (freq, language) => {
     let occurrence;
-    if (freq >= 0.0000061580041224416486) {
+    const thresholds = constants.OCCURRENCE_THRESHOLDS[language];
+    if (freq >= thresholds.top5) {
         occurrence = 'Very common';
     }
-    else if (freq > 0.0000006842226802712943) {
+    else if (freq > thresholds.top10) {
         occurrence = 'Common';
     }
-    else if (freq > 0.00000034211134013564717) {
+    else if (freq > thresholds.top50) {
         occurrence = 'Uncommon';
     }
     else {

@@ -1,6 +1,7 @@
 const posFilters = require('./posFilters');
 const nonWordFilters = require('./nonWordFilter');
-const config = require(`../../config/${env}.json`);
+const env = process.env.NODE_ENV || 'dev';
+const config = require(`../config/${env}.json`);
 const googleTranslate = require('google-translate')(config.googleTranslateApiKey);
 
 async function filterIllegalWords(words) {
