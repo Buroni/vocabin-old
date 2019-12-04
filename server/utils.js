@@ -44,7 +44,7 @@ function getLanguage(lang) {
 const asyncTranslate = word => {
     return new Promise((resolve, reject) => {
         googleTranslate.translate(word, 'en', (err, translation) => {
-            return resolve(translation);
+            return err ? reject(err) : resolve(translation);
         });
     })
 };
