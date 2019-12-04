@@ -1,20 +1,22 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import './App.css';
-import {Callout, TextArea} from "@blueprintjs/core";
+import {TextArea} from "@blueprintjs/core";
 import {ButtonTray} from "./components/ButtonTray/ButtonTray";
 import {ToggleGroup, ToggleItem, TranslationRequest} from "./appTypes";
 import {INITIAL_TRANSLATION_REQUEST} from "./constants";
 import {postText} from "./api/apiFunctions";
 import {VocabOutput} from "./components/VocabOutput/VocabOutput";
-import {TranslationResponseItem, WordGroups} from "./components/VocabOutput/types";
+import {TranslationResponseItem} from "./components/VocabOutput/types";
 import {EditWordDialog} from "./components/EditWordDialog/EditWordDialog";
-import {InfoCallout} from "./components/InfoCallout/InfoCallout";
-import {SaveVocabCallout} from "./components/SaveVocabCallout/SaveVocabCallout";
+import {ErrorCallout} from "./components/callouts/ErrorCallout/ErrorCallout";
+import {InfoCallout} from "./components/callouts/InfoCallout/InfoCallout";
+import {SaveVocabCallout} from "./components/callouts/SaveVocabCallout/SaveVocabCallout";
 
 const App: React.FC = () => {
     const [translationRequest, setTranslationRequest] = useState<TranslationRequest>(INITIAL_TRANSLATION_REQUEST);
     const [translationResponse, setTranslationResponse] = useState<TranslationResponseItem[] | null>(null);
     const [editWordDialog, setEditWordDialog] = useState<TranslationResponseItem | null>(null);
+    const [errors, setErrors] = useState<string | null>(null);
     const pageEnd = useRef<HTMLDivElement>(null);
 
     const patchTranslationRequest = (partialRequest: Partial<TranslationRequest>) => {
@@ -27,10 +29,15 @@ const App: React.FC = () => {
     };
 
     const submit = async () => {
-        const res = await postText(translationRequest);
-        setTranslationResponse(res);
-        const current = pageEnd.current;
-        current && window.scrollTo(0, current.offsetTop);
+        setErrors(null);
+        try {
+            const res = await postText(translationRequest);
+            setTranslationResponse(res);
+            const current = pageEnd.current;
+            current && window.scrollTo(0, current.offsetTop);
+        } catch(e) {
+            setErrors(`${e.name}: ${e.message}`);
+        }
     };
 
     const toggleGroup: ToggleGroup = (occurrence, checked) => {
@@ -86,12 +93,12 @@ const App: React.FC = () => {
                     submit={submit}
                     textLength={textLength}
                 />
-                {!translationResponse &&
+                {!translationResponse && !errors &&
                     <InfoCallout/>
                 }
             </div>
             <div className={"App__vocab-output-container"}>
-                {translationResponse &&
+                {translationResponse && !errors &&
                     <React.Fragment>
                         <VocabOutput
                             wordItems={translationResponse}
@@ -102,6 +109,7 @@ const App: React.FC = () => {
                         <SaveVocabCallout wordItems={translationResponse}/>
                     </React.Fragment>
                 }
+                {errors && <ErrorCallout err={errors}/>}
             </div>
             <div className={"App__page-end"} ref={pageEnd}/>
         </div>

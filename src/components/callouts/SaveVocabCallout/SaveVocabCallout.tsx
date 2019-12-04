@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Callout} from "@blueprintjs/core";
 import "./SaveVocabCallout.css";
 import { CSVLink } from "react-csv";
-import {TranslationResponseItem} from "../VocabOutput/types";
+import {TranslationResponseItem} from "../../VocabOutput/types";
 
 type Props = {
     wordItems: TranslationResponseItem[];
