@@ -41,14 +41,15 @@ function getLanguage(lang) {
     }
 }
 
-const asyncTranslate = word => {
+const asyncTranslate = (word, langIso) => {
     return new Promise((resolve, reject) => {
-        googleTranslate.translate(word, 'en', (err, translation) => {
+        googleTranslate.translate(word, langIso, 'en', (err, translation) => {
             return err ? reject(err) : resolve(translation);
         });
     })
 };
 
+//googleTranslate.detectLanguage(word, (err, detection)
 module.exports = {
     filterResults,
     getLanguage,

@@ -32,6 +32,14 @@ const OCCURRENCE_THRESHOLDS = {
     }
 };
 
+const LANG_ISO = {
+    "french": "fr",
+    "italian": "it",
+    "german": "de",
+    "spanish": "es",
+    "russian": "ru"
+};
+
 module.exports = Object.freeze({
     LOCAL_ORIGIN_URL: "http://localhost:3000",
     REMOTE_ORIGIN_URL: "https://vocabin.net",
@@ -56,5 +64,6 @@ module.exports = Object.freeze({
             paranoid: true
         }
     },
-    OCCURRENCE_THRESHOLDS
+    OCCURRENCE_THRESHOLDS,
+    LANG_ISO
 });
