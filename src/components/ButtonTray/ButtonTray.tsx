@@ -23,6 +23,8 @@ export const ButtonTray = (p: Props) => {
         p.changeCardType(val);
     };
 
+    const submitDisabled = p.textLength >= CHAR_LIMIT || p.textLength === 0;
+
     return (
         <div className={"ButtonTray"}>
             <div className={"ButtonTray__char-count"}>{p.textLength} / {CHAR_LIMIT}</div>
@@ -40,7 +42,7 @@ export const ButtonTray = (p: Props) => {
                 <option value={CardType.CLOZE_HINT}>Cloze cards - hint</option>
             </HTMLSelect>
             <div style={{paddingRight: "0.5em"}}/>
-            <Button disabled={p.textLength >= CHAR_LIMIT} onClick={p.submit}>Get Vocab</Button>
+            <Button disabled={submitDisabled} onClick={p.submit}>Get Vocab</Button>
         </div>
     );
 };

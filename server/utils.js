@@ -16,7 +16,7 @@ async function filterResults(results, language, cardType) {
         .map(r => {
             //r.t: original word; r.l root form.
             if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined' && !cardType.includes('cloze')) {
-                return r.l;
+                return r.t;
             } else {
                 return r.t;
             }
