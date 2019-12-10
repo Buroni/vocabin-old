@@ -19,7 +19,7 @@ The <a href="http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/" target="_
 After cloning this repo and navigating to the project root, follow the steps below to set up the application on your local machine:
 
 1. Run `npm install` in both the /client and /server directories.
-2. Upload the word frequency data located in /word_freq_data to a local DB, with tables named `word_freq_{language}` and columns `word, freq, id`.
+2. Upload the word frequency data located in /word*freq_data to a local DB, with tables named `word_freq*{language}`and columns`word, freq, id`.
 3. Obtain a <a href="https://cloud.google.com/translate/docs/" target="_blank">google translate API key</a>.
 4. Install the <a href="http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/" target="_blank">TreeTagger</a> library, along with the parameter files for the supported languages.
 5. Create a file `config/dev.json` of the following format:
@@ -36,5 +36,3 @@ After cloning this repo and navigating to the project root, follow the steps bel
   }
 }
 ```
-
-

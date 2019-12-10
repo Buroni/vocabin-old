@@ -1,10 +1,10 @@
 module.exports = function(language, pos) {
   let passPos = false;
 
-  if (typeof pos === 'undefined') return false;
+  if (typeof pos === "undefined") return false;
 
-  switch(language) {
-    case 'german':
+  switch (language) {
+    case "german":
       /*
        * Noun - NN, NE
        * Adjective - ADJA, ADJD
@@ -12,10 +12,13 @@ module.exports = function(language, pos) {
        * Adverb - ADV
        * Interjection - ITJ
        */
-      passPos = (['NN', 'NE', 'ADJA', 'ADV', 'ITJ', 'ADJD'].includes(pos)
-        || pos.includes('VV') || pos.includes('VA') || pos.includes('VM'));
+      passPos =
+        ["NN", "NE", "ADJA", "ADV", "ITJ", "ADJD"].includes(pos) ||
+        pos.includes("VV") ||
+        pos.includes("VA") ||
+        pos.includes("VM");
       break;
-    case 'french':
+    case "french":
       /*
        * Noun - NOM, NAM
        * Adjective - ADJ
@@ -23,9 +26,11 @@ module.exports = function(language, pos) {
        * Adverb - ADV
        * Interjection - INT
        */
-      passPos = (pos.includes('VER') || ['NOM', 'NAM', 'ADJ', 'INT', 'ADV'].includes(pos));
+      passPos =
+        pos.includes("VER") ||
+        ["NOM", "NAM", "ADJ", "INT", "ADV"].includes(pos);
       break;
-    case 'spanish':
+    case "spanish":
       /*
        * Noun - NC, NP, NMEA, NMON
        * Adjective - ADJ
@@ -33,10 +38,15 @@ module.exports = function(language, pos) {
        * Adverb - ADV
        * Interjection - ITJN
        */
-      passPos = (['NC', 'NP', 'ITJN', 'ADJ', 'ADV', 'NMEA', 'NMON'].includes(pos) ||
-      pos.includes('VE') || pos.includes('VH') || pos.includes('VL') || pos.includes('VM')  || pos.includes('VS'));
+      passPos =
+        ["NC", "NP", "ITJN", "ADJ", "ADV", "NMEA", "NMON"].includes(pos) ||
+        pos.includes("VE") ||
+        pos.includes("VH") ||
+        pos.includes("VL") ||
+        pos.includes("VM") ||
+        pos.includes("VS");
       break;
-    case 'korean':
+    case "korean":
       /*
        * Noun - NN*, NP
        * Adjective - VA
@@ -44,9 +54,13 @@ module.exports = function(language, pos) {
        * Adverb - MA*
        * Interjection - IC
        */
-      passPos = (['VA', 'VV', 'IC', 'NP'].includes(pos) || pos.includes('NN') || pos.includes('VC') || pos.includes('MA'));
+      passPos =
+        ["VA", "VV", "IC", "NP"].includes(pos) ||
+        pos.includes("NN") ||
+        pos.includes("VC") ||
+        pos.includes("MA");
       break;
-    case 'italian':
+    case "italian":
       /*
        * Noun - NOM, NPR
        * Adjective - ADJ
@@ -54,9 +68,10 @@ module.exports = function(language, pos) {
        * Adverb - ADV
        * Interjection - INT
        */
-      passPos = (pos.includes('VER') || ['NOM', 'NPR', 'ADJ', 'INT'].includes(pos));
+      passPos =
+        pos.includes("VER") || ["NOM", "NPR", "ADJ", "INT"].includes(pos);
       break;
-    case 'russian':
+    case "russian":
       /*
        * Noun - Nc*, Np*
        * Adjective - Afc*, Afp*
@@ -64,16 +79,15 @@ module.exports = function(language, pos) {
        * Adverb - R, Rc
        * Interjection - I
        */
-      passPos = (
-        pos.includes('Afc') ||
-        pos.includes('Afp') ||
-        pos.includes('Nc') ||
-        pos.includes('Np') ||
-        pos.includes('Vm') ||
-        ['I', 'R', 'Rc'].includes(pos)
-      );
+      passPos =
+        pos.includes("Afc") ||
+        pos.includes("Afp") ||
+        pos.includes("Nc") ||
+        pos.includes("Np") ||
+        pos.includes("Vm") ||
+        ["I", "R", "Rc"].includes(pos);
       break;
-    case 'chinese':
+    case "chinese":
       /*
        * Noun - n, ng, nr, ns, nz
        * Adjective - a, ag, ad, an
@@ -83,12 +97,24 @@ module.exports = function(language, pos) {
        * Idiom - i
        */
       passPos = [
-        'n', 'ng', 'nr', 'ns', 'nz',
-        'a', 'ag', 'ad', 'an',
-        'v', 'vd', 'vg', 'vn',
-        'e', 'i'].includes(pos);
+        "n",
+        "ng",
+        "nr",
+        "ns",
+        "nz",
+        "a",
+        "ag",
+        "ad",
+        "an",
+        "v",
+        "vd",
+        "vg",
+        "vn",
+        "e",
+        "i"
+      ].includes(pos);
       break;
-    case 'danish':
+    case "danish":
       /*
        * Noun - NC*, NP*
        * Adjective - AC*, AD*
@@ -96,15 +122,14 @@ module.exports = function(language, pos) {
        * Adverb - D*
        * Interjection - I*
        */
-      passPos = (
-        pos.startsWith('N') ||
-        pos.startsWith('A') ||
-        pos.startsWith('V') ||
-        pos.startsWith('D') ||
-        pos.startsWith('I')
-      );
+      passPos =
+        pos.startsWith("N") ||
+        pos.startsWith("A") ||
+        pos.startsWith("V") ||
+        pos.startsWith("D") ||
+        pos.startsWith("I");
       break;
-    case 'portuguese-finegrained':
+    case "portuguese-finegrained":
       /*
        * Noun - N*, P*
        * Adjective - TO*
@@ -112,23 +137,22 @@ module.exports = function(language, pos) {
        * Adverb - R*
        * Interjection - I
        */
-      passPos = (
-        pos.startsWith('N') ||
-        pos.startsWith('P') ||
-        pos.startsWith('TO') ||
-        pos.startsWith('V') ||
-        pos.startsWith('R') ||
-        pos.startsWith('I')
-      );
+      passPos =
+        pos.startsWith("N") ||
+        pos.startsWith("P") ||
+        pos.startsWith("TO") ||
+        pos.startsWith("V") ||
+        pos.startsWith("R") ||
+        pos.startsWith("I");
       break;
-    case 'swahili':
+    case "swahili":
       /*
-      * Noun - N
-      * Adjective - ADJ
-      * Verb - VFIN, VB, V-BE
-      * Adverb - ADV
-      */
-      passPos = ['N', 'ADJ', 'VFIN', 'VB', 'V-BE', 'ADV'].includes(pos);
+       * Noun - N
+       * Adjective - ADJ
+       * Verb - VFIN, VB, V-BE
+       * Adverb - ADV
+       */
+      passPos = ["N", "ADJ", "VFIN", "VB", "V-BE", "ADV"].includes(pos);
     default:
       break;
   }

@@ -1,9 +1,9 @@
 .EditWordField {
-    display: flex;
-    align-items: center;
-    margin-top: 1em !important;
+  display: flex;
+  align-items: center;
+  margin-top: 1em !important;
 }
 
 .EditWordField__name {
-    flex: 0 0 6em;
+  flex: 0 0 6em;
 }
