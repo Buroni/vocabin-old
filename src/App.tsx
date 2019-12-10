@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
-import './App.css';
+import React, {ChangeEvent, useRef, useState} from "react";
+import "./App.css";
 import {TextArea} from "@blueprintjs/core";
 import {ButtonTray} from "./components/ButtonTray/ButtonTray";
 import {ToggleGroup, ToggleItem, TranslationRequest} from "./appTypes";
@@ -11,7 +11,6 @@ import {EditWordDialog} from "./components/EditWordDialog/EditWordDialog";
 import {ErrorCallout} from "./components/callouts/ErrorCallout/ErrorCallout";
 import {InfoCallout} from "./components/callouts/InfoCallout/InfoCallout";
 import {SaveVocabCallout} from "./components/callouts/SaveVocabCallout/SaveVocabCallout";
-import {Footer} from "./components/Footer/Footer";
 
 const App: React.FC = () => {
     const [translationRequest, setTranslationRequest] = useState<TranslationRequest>(INITIAL_TRANSLATION_REQUEST);
