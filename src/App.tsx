@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from "react";
 import "./App.css";
-import { TextArea } from "@blueprintjs/core";
+import { Spinner, TextArea } from "@blueprintjs/core";
 import { ButtonTray } from "./components/ButtonTray/ButtonTray";
 import { ToggleGroup, ToggleItem, TranslationRequest } from "./appTypes";
 import { INITIAL_TRANSLATION_REQUEST } from "./constants";
@@ -23,6 +23,7 @@ const App: React.FC = () => {
         editWordDialog,
         setEditWordDialog
     ] = useState<TranslationResponseItem | null>(null);
+    const [fetching, setFetching] = useState(false);
     const [errors, setErrors] = useState<string | null>(null);
     const pageEnd = useRef<HTMLDivElement>(null);
 
@@ -39,6 +40,7 @@ const App: React.FC = () => {
 
     const submit = async () => {
         setErrors(null);
+        setFetching(true);
         try {
             const res = await postText(translationRequest);
             setTranslationResponse(res);
@@ -46,6 +48,8 @@ const App: React.FC = () => {
             current && window.scrollTo(0, current.offsetTop);
         } catch (e) {
             setErrors(`${e.name}: ${e.message}`);
+        } finally {
+            setFetching(false);
         }
     };
 
@@ -110,8 +114,15 @@ const App: React.FC = () => {
                     submit={submit}
                     textLength={textLength}
                 />
-                {!translationResponse && !errors && <InfoCallout />}
+                {!translationResponse && !errors && !fetching && (
+                    <InfoCallout />
+                )}
             </div>
+            {fetching && (
+                <div style={{ paddingTop: "3em" }}>
+                    <Spinner />
+                </div>
+            )}
             {translationResponse && !errors && (
                 <div className={"App__vocab-output-container"}>
                     <React.Fragment>

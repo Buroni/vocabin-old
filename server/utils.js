@@ -59,11 +59,17 @@ function getLanguage(lang) {
 }
 
 const extractFromSpan = translation => {
+    // TODO: Make this function less cryptic
     const matchSpan = str =>
-        str.match(/<span>(.*?)<\/span>/g).map(v => v.replace(/<\/?span>/g, ""));
+        str
+            .match(/<span>(.*?)<\/span>/g)
+            .map(v => v.replace(/<\/?span>/g, ""))[0]
+            .split(" ");
+    const originalExtract = matchSpan(translation.originalText);
+    const translatedExtract = matchSpan(translation.translatedText);
     return {
-        originalText: matchSpan(translation.originalText),
-        translatedText: matchSpan(translation.translatedText)
+        originalText: originalExtract[originalExtract.length - 1],
+        translatedText: translatedExtract[translatedExtract.length - 1]
     };
 };
 
