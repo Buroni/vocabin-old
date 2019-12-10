@@ -6,25 +6,31 @@ const googleTranslate = require("google-translate")(
     config.googleTranslateApiKey
 );
 
+const rootWordExists = word =>
+    word !== "<unknown>" && word !== "_" && typeof word !== "undefined";
+
 async function filterIllegalWords(words) {
     const promises = words.map(word => nonWordFilters(word));
     const results = await Promise.all(promises);
     return words.filter((word, i) => results[i]);
 }
 
-async function filterResults(results, language, cardType) {
+async function filterResults(results, language, cardType, options) {
     const words = [
         ...new Set(
             results
                 .filter(r => posFilters(language, r.pos))
                 .map(r => {
                     //r.t: original word; r.l root form.
-                    /*if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined' && !cardType.includes('cloze')) {
-                return r.l;
-            } else {
-                return r.t;
-            }*/
-                    return r.t;
+                    if (
+                        rootWordExists(r.l) &&
+                        options.convertToRoot &&
+                        !cardType.includes("cloze")
+                    ) {
+                        return r.l;
+                    } else {
+                        return r.t;
+                    }
                 })
         )
     ];
@@ -59,9 +65,6 @@ function getLanguage(lang) {
 }
 
 const extractFromSpan = translation => {
-    // TODO: Make this function less cryptic
-    console.log("---");
-    console.log(translation.originalText, translation.translatedText);
     const matchSpan = str =>
         str
             .match(/<span>(.*?)<\/span>/g)

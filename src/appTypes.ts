@@ -1,4 +1,5 @@
 import { Occurrence } from "./components/VocabOutput/types";
+import { Options } from "./types";
 
 export enum Language {
     SPANISH = "spanish",
@@ -18,6 +19,7 @@ export type TranslationRequest = {
     language: Language;
     cardType: CardType;
     text: string | null;
+    options: Options;
 };
 
 export type OccurrenceKey =

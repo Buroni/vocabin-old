@@ -1,0 +1,21 @@
+.AdvancedSettings__field {
+    display: flex;
+    align-items: baseline;
+}
+
+.AdvancedSettings__card {
+    margin-top: 1em !important;
+}
+
+.AdvancedSettings__description {
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+.AdvancedSettings__name {
+    flex: 0 0 20em;
+}
+
+.AdvancedSettings__value {
+    flex: 1;
+}

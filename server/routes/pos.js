@@ -45,7 +45,8 @@ module.exports = function(app) {
             const filtered = await utils.filterResults(
                 results,
                 language,
-                cardType
+                cardType,
+                options
             );
             const translationItem = await getFilteredResults(
                 filtered,

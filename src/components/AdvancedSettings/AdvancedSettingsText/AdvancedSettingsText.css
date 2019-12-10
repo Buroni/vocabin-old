@@ -1,0 +1,15 @@
+.AdvancedSettingsText {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    opacity: 0.4;
+    cursor: pointer;
+}
+
+.AdvancedSettingsText:hover {
+    opacity: 1;
+}
+
+.AdvancedSettingsText__icon {
+    paddingright: 0.2em;
+}

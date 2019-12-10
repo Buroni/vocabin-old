@@ -11,6 +11,8 @@ import { EditWordDialog } from "./components/EditWordDialog/EditWordDialog";
 import { ErrorCallout } from "./components/callouts/ErrorCallout/ErrorCallout";
 import { InfoCallout } from "./components/callouts/InfoCallout/InfoCallout";
 import { SaveVocabCallout } from "./components/callouts/SaveVocabCallout/SaveVocabCallout";
+import { AdvancedSettingsText } from "./components/AdvancedSettings/AdvancedSettingsText/AdvancedSettingsText";
+import { AdvancedSettings } from "./components/AdvancedSettings/AdvancedSettings";
 
 const App: React.FC = () => {
     const [translationRequest, setTranslationRequest] = useState<
@@ -25,6 +27,10 @@ const App: React.FC = () => {
     ] = useState<TranslationResponseItem | null>(null);
     const [fetching, setFetching] = useState(false);
     const [errors, setErrors] = useState<string | null>(null);
+    const [
+        advancedSettingsDialogOpen,
+        setAdvancedSettingsDialogOpen
+    ] = useState(false);
     const pageEnd = useRef<HTMLDivElement>(null);
 
     const patchTranslationRequest = (
@@ -95,6 +101,20 @@ const App: React.FC = () => {
                 wordItem={editWordDialog}
                 close={() => setEditWordDialog(null)}
                 save={saveWord}
+            />
+            <AdvancedSettings
+                isOpen={advancedSettingsDialogOpen}
+                close={() => setAdvancedSettingsDialogOpen(false)}
+                options={translationRequest.options}
+                patchOptions={patch =>
+                    setTranslationRequest({
+                        ...translationRequest,
+                        options: { ...translationRequest.options, ...patch }
+                    })
+                }
+            />
+            <AdvancedSettingsText
+                onClick={() => setAdvancedSettingsDialogOpen(true)}
             />
             <div className={"App__input-container"}>
                 <img src="/vocabin_logo.png" width="228" height="101" />
