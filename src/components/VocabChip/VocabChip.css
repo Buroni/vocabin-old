@@ -1,9 +1,9 @@
 .VocabChip {
-  margin: 0.25em;
+    margin: 0.25em;
 }
 
 .VocabChip__content {
-  display: flex;
-  align-items: center;
-  height: 2em !important;
+    display: flex;
+    align-items: center;
+    height: 2em !important;
 }

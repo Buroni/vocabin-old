@@ -1,21 +1,21 @@
 {
-  "name": "vocabin-server",
-  "version": "1.0.0",
-  "description": "The server for vocabin",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "author": "Jake Browning",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "google-translate": "^2.2.0",
-    "mysql": "^2.16.0",
-    "mysql2": "^1.6.4",
-    "sequelize": "^4.42.0"
-  }
+    "name": "vocabin-server",
+    "version": "1.0.0",
+    "description": "The server for vocabin",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "author": "Jake Browning",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.5",
+        "express": "^4.16.4",
+        "google-translate": "^2.2.0",
+        "mysql": "^2.16.0",
+        "mysql2": "^1.6.4",
+        "sequelize": "^4.42.0"
+    }
 }

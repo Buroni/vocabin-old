@@ -17,7 +17,7 @@ app.set("port", port);
 require("./routes")(app, {});
 
 if (env === "dev") {
-  http.createServer(app).listen(port);
+    http.createServer(app).listen(port);
 } else {
-  https.createServer(constants.SSL_OPTIONS, app).listen(port);
+    https.createServer(constants.SSL_OPTIONS, app).listen(port);
 }
