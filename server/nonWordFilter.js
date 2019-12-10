@@ -21,7 +21,8 @@ const illegalChars = [
     "]",
     "一",
     "«",
-    "»"
+    "»",
+    ","
 ];
 
 module.exports = function(word) {

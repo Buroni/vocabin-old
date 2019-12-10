@@ -36,7 +36,7 @@ module.exports = function(app) {
     });
 
     app.post(route, async (req, res) => {
-        const { text, language, cardType } = req.body;
+        const { text, language, cardType, options } = req.body;
         const tagger = new Treetagger({ language });
         const sentences = text.split(".");
 
@@ -51,7 +51,8 @@ module.exports = function(app) {
                 filtered,
                 language,
                 cardType,
-                sentence
+                sentence,
+                options
             );
             return translationItem;
         });
@@ -70,7 +71,13 @@ const asyncTag = (text, tagger) => {
     });
 };
 
-const getFilteredResults = (filtered, language, cardType, sentence) => {
+const getFilteredResults = (
+    filtered,
+    language,
+    cardType,
+    sentence,
+    options
+) => {
     const query = `SELECT relative_freq AS freq FROM word_freq_${utils.getLanguage(
         language
     )} WHERE word=$1`;
@@ -81,7 +88,8 @@ const getFilteredResults = (filtered, language, cardType, sentence) => {
         const translation = await utils.asyncTranslate(
             word,
             sentence,
-            constants.LANG_ISO[language]
+            constants.LANG_ISO[language],
+            options.contextual
         );
         return {
             word,

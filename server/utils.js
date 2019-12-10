@@ -60,16 +60,15 @@ function getLanguage(lang) {
 
 const extractFromSpan = translation => {
     // TODO: Make this function less cryptic
+    console.log("---");
+    console.log(translation.originalText, translation.translatedText);
     const matchSpan = str =>
         str
             .match(/<span>(.*?)<\/span>/g)
-            .map(v => v.replace(/<\/?span>/g, ""))[0]
-            .split(" ");
-    const originalExtract = matchSpan(translation.originalText);
-    const translatedExtract = matchSpan(translation.translatedText);
+            .map(v => v.replace(/<\/?span>/g, ""))[0];
     return {
-        originalText: originalExtract[originalExtract.length - 1],
-        translatedText: translatedExtract[translatedExtract.length - 1]
+        originalText: matchSpan(translation.originalText),
+        translatedText: matchSpan(translation.translatedText)
     };
 };
 
@@ -77,19 +76,22 @@ const extractFromSpan = translation => {
  * We wrap the target word in <span>...</span> tags and translate the whole sentence, in order to translate the word
  * contextually. Then the correct word in the translated sentence can be extracted from the span tags.
  */
-const asyncTranslate = (word, sentence, langIso) => {
-    const taggedSentence = sentence.replace(word, `<span>${word}</span>`);
+const asyncTranslate = (word, sentence, langIso, contextual = false) => {
+    const target = contextual
+        ? sentence
+              .replace(word, `<span>${word}</span>`)
+              .split(",")
+              .find(clause => clause.includes("span"))
+        : word;
+
     return new Promise((resolve, reject) => {
-        googleTranslate.translate(
-            taggedSentence,
-            langIso,
-            "en",
-            (err, translation) => {
-                return err
-                    ? reject(err)
-                    : resolve(extractFromSpan(translation));
-            }
-        );
+        googleTranslate.translate(target, langIso, "en", (err, translation) => {
+            return err
+                ? reject(err)
+                : resolve(
+                      contextual ? extractFromSpan(translation) : translation
+                  );
+        });
     });
 };
 
