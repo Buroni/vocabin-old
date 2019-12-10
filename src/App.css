@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   margin: 0 auto;
-  margin-top: 3em;
+  padding-top: 3em;
 }
 
 .App__input-container {

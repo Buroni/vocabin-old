@@ -11,6 +11,7 @@ import {EditWordDialog} from "./components/EditWordDialog/EditWordDialog";
 import {ErrorCallout} from "./components/callouts/ErrorCallout/ErrorCallout";
 import {InfoCallout} from "./components/callouts/InfoCallout/InfoCallout";
 import {SaveVocabCallout} from "./components/callouts/SaveVocabCallout/SaveVocabCallout";
+import {Footer} from "./components/Footer/Footer";
 
 const App: React.FC = () => {
     const [translationRequest, setTranslationRequest] = useState<TranslationRequest>(INITIAL_TRANSLATION_REQUEST);
@@ -97,20 +98,20 @@ const App: React.FC = () => {
                     <InfoCallout/>
                 }
             </div>
-            <div className={"App__vocab-output-container"}>
-                {translationResponse && !errors &&
-                    <React.Fragment>
-                        <VocabOutput
-                            wordItems={translationResponse}
-                            toggleGroup={toggleGroup}
-                            toggleItem={toggleItem}
-                            editWordItem={wordItem => setEditWordDialog(wordItem)}
-                        />
-                        <SaveVocabCallout wordItems={translationResponse}/>
-                    </React.Fragment>
-                }
-                {errors && <ErrorCallout err={errors}/>}
-            </div>
+            {translationResponse && !errors &&
+                <div className={"App__vocab-output-container"}>
+                        <React.Fragment>
+                            <VocabOutput
+                                wordItems={translationResponse}
+                                toggleGroup={toggleGroup}
+                                toggleItem={toggleItem}
+                                editWordItem={wordItem => setEditWordDialog(wordItem)}
+                            />
+                            <SaveVocabCallout wordItems={translationResponse}/>
+                        </React.Fragment>
+                </div>
+            }
+            {errors && <ErrorCallout err={errors}/>}
             <div className={"App__page-end"} ref={pageEnd}/>
         </div>
   );
