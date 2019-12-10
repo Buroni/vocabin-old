@@ -65,7 +65,7 @@ const getFilteredResults = (filtered, language, cardType, sentence) => {
     const promises = filtered.map(async (word, idx) => {
         const queryResults = await sequelize.query(query, {bind: [word]});
         const freq = (queryResults[0][0]) ? +queryResults[0][0].freq : 0;
-        const translation = await utils.asyncTranslate(word, constants.LANG_ISO[language]);
+        const translation = await utils.asyncTranslate(word, sentence, constants.LANG_ISO[language]);
         return {
             word,
             sentence: getFormattedSentence(word, translation.translatedText, sentence, cardType),

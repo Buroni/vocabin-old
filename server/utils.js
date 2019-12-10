@@ -15,11 +15,12 @@ async function filterResults(results, language, cardType) {
         .filter(r => posFilters(language, r.pos))
         .map(r => {
             //r.t: original word; r.l root form.
-            if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined' && !cardType.includes('cloze')) {
+            /*if (r.l !== '<unknown>' && r.l !== '_' && typeof r.l !== 'undefined' && !cardType.includes('cloze')) {
                 return r.l;
             } else {
                 return r.t;
-            }
+            }*/
+            return r.t;
         })
     )];
 
@@ -41,15 +42,30 @@ function getLanguage(lang) {
     }
 }
 
-const asyncTranslate = (word, langIso) => {
+const extractFromSpan = translation => {
+    const matchSpan = str => str.match(/<span>(.*?)<\/span>/g)
+        .map(v => v.replace(/<\/?span>/g,''));
+    return {
+        originalText: matchSpan(translation.originalText),
+        translatedText: matchSpan(translation.translatedText)
+    };
+};
+
+
+/*
+ * We wrap the target word in <span>...</span> tags and translate the whole sentence, in order to translate the word
+ * contextually. Then the correct word in the translated sentence can be extracted from the span tags.
+ */
+const asyncTranslate = (word, sentence, langIso) => {
+    const taggedSentence = sentence.replace(word, `<span>${word}</span>`);
     return new Promise((resolve, reject) => {
-        googleTranslate.translate(word, langIso, 'en', (err, translation) => {
-            return err ? reject(err) : resolve(translation);
+        googleTranslate.translate(taggedSentence, langIso, 'en', (err, translation) => {
+            return err ? reject(err) : resolve(extractFromSpan(translation));
         });
     })
 };
 
-//googleTranslate.detectLanguage(word, (err, detection)
+
 module.exports = {
     filterResults,
     getLanguage,
