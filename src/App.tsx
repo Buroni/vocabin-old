@@ -13,6 +13,7 @@ import { InfoCallout } from "./components/callouts/InfoCallout/InfoCallout";
 import { SaveVocabCallout } from "./components/callouts/SaveVocabCallout/SaveVocabCallout";
 import { AdvancedSettingsText } from "./components/AdvancedSettings/AdvancedSettingsText/AdvancedSettingsText";
 import { AdvancedSettings } from "./components/AdvancedSettings/AdvancedSettings";
+import { Footer } from "./components/Footer/Footer";
 
 const App: React.FC = () => {
     const [translationRequest, setTranslationRequest] = useState<
@@ -159,6 +160,7 @@ const App: React.FC = () => {
                 </div>
             )}
             {errors && <ErrorCallout err={errors} />}
+            <Footer />
             <div className={"App__page-end"} ref={pageEnd} />
         </div>
     );
